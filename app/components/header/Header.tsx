@@ -16,7 +16,7 @@ export function Header() {
       })}
     >
       <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
-        <div className="i-ph:list text-xl" />
+        <div className="i-ph:sidebar-simple-duotone text-xl" />
         <a href="/" className="text-2xl font-semibold text-accent flex items-center">
           {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
           <img src="/ellogy-logo.svg" alt="Ellogy Coder logo" className="w-[41px] h-[40px] inline-block" />
