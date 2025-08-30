@@ -2,7 +2,7 @@
  * Maximum tokens for response generation (conservative default for older models)
  * Modern models can handle much higher limits - specific limits are set per model
  */
-export const MAX_TOKENS = 32000;
+export const MAX_TOKENS = 100000;
 
 /*
  * Provider-specific default completion token limits
