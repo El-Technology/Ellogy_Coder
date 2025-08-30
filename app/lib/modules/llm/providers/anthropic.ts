@@ -66,7 +66,8 @@ export default class AnthropicProvider extends BaseProvider {
 
     return data.map((m: any) => {
       // Get accurate context window from Anthropic API
-      let contextWindow = 32000; // default fallback
+      let contextWindow = 200000; // default fallback
+      let maxCompletionTokens = 128000; // default for most Claude models
 
       // Anthropic provides max_tokens in their API response
       if (m.max_tokens) {
@@ -81,12 +82,17 @@ export default class AnthropicProvider extends BaseProvider {
         contextWindow = 200000; // Claude 3 Sonnet has 200k context
       }
 
+      // Claude Sonnet 4 has a lower completion token limit
+      if (m.id === 'claude-sonnet-4-20250514') {
+        maxCompletionTokens = 64000; // Claude Sonnet 4 has 64k completion token limit
+      }
+
       return {
         name: m.id,
         label: `${m.display_name} (${Math.floor(contextWindow / 1000)}k context)`,
         provider: this.name,
         maxTokenAllowed: contextWindow,
-        maxCompletionTokens: 128000, // Claude models support up to 128k completion tokens
+        maxCompletionTokens,
       };
     });
   }

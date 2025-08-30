@@ -11,7 +11,7 @@ export const MAX_TOKENS = 100000;
 export const PROVIDER_COMPLETION_LIMITS: Record<string, number> = {
   OpenAI: 16384,
   Github: 16384, // GitHub Models use OpenAI-compatible limits
-  Anthropic: 128000,
+  Anthropic: 64000, // Adjusted for Claude Sonnet 4 limit (some models support 128k)
   Google: 32768,
   Cohere: 4000,
   DeepSeek: 8192,
