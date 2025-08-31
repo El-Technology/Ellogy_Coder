@@ -1,6 +1,7 @@
 /*
- * Maximum tokens for response generation (conservative default for older models)
- * Modern models can handle much higher limits - specific limits are set per model
+ * Maximum tokens for response generation (updated for modern model capabilities)
+ * This serves as a fallback when model-specific limits are unavailable
+ * Modern models like Claude 3.5, GPT-4o, and Gemini Pro support 128k+ tokens
  */
 export const MAX_TOKENS = 64000;
 
