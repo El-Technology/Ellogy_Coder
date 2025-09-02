@@ -76,7 +76,6 @@ export default class AnthropicProvider extends BaseProvider {
     return data.map((m: any) => {
       // Get accurate context window from Anthropic API
       let contextWindow = 200000; // default fallback
-      let maxCompletionTokens = 128000; // default for most Claude models
 
       // Anthropic provides max_tokens in their API response
       if (m.max_tokens) {
