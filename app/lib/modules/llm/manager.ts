@@ -198,6 +198,14 @@ export class LLMManager {
   }
 
   getDefaultProvider(): BaseProvider {
+    // For deployment, always use OpenRouter as default
+    const openRouterProvider = this._providers.get('OpenRouter');
+
+    if (openRouterProvider) {
+      return openRouterProvider;
+    }
+
+    // Fallback to first provider if OpenRouter not available
     const firstProvider = this._providers.values().next().value;
 
     if (!firstProvider) {

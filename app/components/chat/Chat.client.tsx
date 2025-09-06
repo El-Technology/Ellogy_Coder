@@ -137,6 +137,8 @@ export const ChatImpl = memo(
     const [llmErrorAlert, setLlmErrorAlert] = useState<LlmErrorAlertType | undefined>(undefined);
     const [model, setModel] = useState(() => {
       const savedModel = Cookies.get('selectedModel');
+
+      // For deployment: always use the configured default model (Qwen3 Coder)
       return savedModel || DEFAULT_MODEL;
     });
     const [provider, setProvider] = useState(() => {
@@ -611,10 +613,21 @@ export const ChatImpl = memo(
 
     useEffect(() => {
       const storedApiKeys = Cookies.get('apiKeys');
+      let initialApiKeys: Record<string, string> = {};
 
       if (storedApiKeys) {
-        setApiKeys(JSON.parse(storedApiKeys));
+        initialApiKeys = JSON.parse(storedApiKeys);
       }
+
+      // For deployment: automatically set OpenRouter API key if available from environment
+      if (
+        !initialApiKeys.OpenRouter &&
+        (import.meta.env.VITE_OPEN_ROUTER_API_KEY || import.meta.env.OPEN_ROUTER_API_KEY)
+      ) {
+        initialApiKeys.OpenRouter = import.meta.env.VITE_OPEN_ROUTER_API_KEY || import.meta.env.OPEN_ROUTER_API_KEY;
+      }
+
+      setApiKeys(initialApiKeys);
     }, []);
 
     const handleModelChange = (newModel: string) => {
